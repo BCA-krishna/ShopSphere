@@ -39,35 +39,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
 
                 .authorizeHttpRequests(auth -> auth
-
-                        // IMPORTANT: Product APIs public
-                        .requestMatchers("/api/products", "/api/products/**").permitAll()
-
-                        // CORS preflight
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                        // Public APIs
-                        .requestMatchers(
-                                "/api/auth/**",
-                                "/uploads/**",
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html"
-                        ).permitAll()
-
-                        // Admin APIs
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                        // Customer APIs
-                        .requestMatchers("/api/coupons/**").authenticated()
-                        .requestMatchers("/api/users/**").authenticated()
-
-                        .anyRequest().authenticated()
-                )
-
-                .addFilterBefore(
-                        jwtFilter,
-                        UsernamePasswordAuthenticationFilter.class
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
