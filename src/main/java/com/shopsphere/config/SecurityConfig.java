@@ -2,6 +2,7 @@ package com.shopsphere.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,36 +35,37 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public APIs
+                        // CORS preflight
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Public Auth APIs
+                        .requestMatchers("/api/auth/**").permitAll()
+
+                        // Public Product APIs
+                        .requestMatchers(HttpMethod.GET, "/api/products").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+
+                        // Public files
+                        .requestMatchers("/uploads/**").permitAll()
+
+                        // Swagger
                         .requestMatchers(
-                                "/api/auth/**",
-                                "/uploads/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
 
-                        // Public Product APIs
-                        .requestMatchers(
-                                "/api/products",
-                                "/api/products/**"
-                        ).permitAll()
+                        // Admin
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // Admin APIs
-                        .requestMatchers("/api/admin/**")
-                        .hasRole("ADMIN")
-
-                        // Customer APIs
-                        .requestMatchers("/api/coupons/**")
-                        .authenticated()
-
-                        .requestMatchers("/api/users/**")
-                        .authenticated()
+                        // Protected
+                        .requestMatchers("/api/coupons/**").authenticated()
+                        .requestMatchers("/api/users/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
@@ -81,7 +83,7 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOriginPatterns(List.of(
+        configuration.setAllowedOrigins(List.of(
                 "https://dulcet-lollipop-7d6a0f.netlify.app",
                 "http://localhost:5173"
         ));
