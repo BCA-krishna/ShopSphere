@@ -360,7 +360,7 @@ function Products() {
                                         <td>
                                             <div className="prod-name-cell">
                                                 <img
-                                                    src={`http://localhost:8080/uploads/${product.imageUrl}`}
+                                                    src={`https://shopsphere-backend-w77.onrender.com/uploads/${product.imageUrl}`}
                                                     alt={product.name}
                                                     className="prod-thumb"
                                                 />

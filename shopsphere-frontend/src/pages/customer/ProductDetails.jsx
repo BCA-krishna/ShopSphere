@@ -50,7 +50,7 @@ function ProductDetails() {
     }
 
     const imageUrl = product.imageUrl
-        ? `http://localhost:8080/uploads/${product.imageUrl}`
+        ? `https://shopsphere-backend-w77.onrender.com/uploads/${product.imageUrl}`
         : "https://via.placeholder.com/500";
 
     return (

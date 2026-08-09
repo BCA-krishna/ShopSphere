@@ -6,7 +6,7 @@ import "./ProductCard.css";
 function ProductCard({ product, compact }) {
 
     const imageUrl = product.imageUrl
-        ? `http://localhost:8080/uploads/${product.imageUrl}`
+        ? `https://shopsphere-backend-w77.onrender.com/uploads/${product.imageUrl}`
         : "https://via.placeholder.com/300x300?text=No+Image";
 
     const handleAddToCart = async (e) => {
