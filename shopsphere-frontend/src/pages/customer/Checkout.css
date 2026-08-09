@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap');
+
+.checkout-page {
+  --plum: #3B0F2E;
+  --raspberry: #D6285B;
+  --raspberry-deep: #B31C49;
+  --marigold: #F2A93B;
+  --paper: #FBF6F4;
+  --panel: #FFFFFF;
+  --ink: #241019;
+  --ink-soft: #8B6B78;
+  --line: #EFE1E6;
+
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  font-family: 'Manrope', sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.checkout-page * {
+  box-sizing: border-box;
+}
+
+.checkout-title {
+  margin: 0 0 0.35rem;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+
+.checkout-subtitle {
+  margin: 0 0 1.75rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+/* ---------- Form panel ---------- */
+
+.checkout-form {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 2rem;
+}
+
+.checkout-section {
+  margin-bottom: 1.75rem;
+}
+
+.checkout-section:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.checkout-section-heading {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--raspberry-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 1rem;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.1rem;
+}
+
+.checkout-grid-three {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1.1rem;
+}
+
+.checkout-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.checkout-field-wide {
+  width: 100%;
+}
+
+.checkout-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.checkout-input {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.94rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.checkout-input::placeholder {
+  color: #C7AEB6;
+}
+
+.checkout-input:focus {
+  outline: none;
+  border-color: var(--raspberry);
+  box-shadow: 0 0 0 3px rgba(214, 40, 91, 0.12);
+}
+
+.checkout-textarea {
+  resize: vertical;
+  min-height: 84px;
+}
+
+/* ---------- Submit ---------- */
+
+.checkout-submit-btn {
+  width: 100%;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: #FFFFFF;
+  background: var(--raspberry);
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.checkout-submit-btn:hover:not(:disabled) {
+  background: var(--raspberry-deep);
+  transform: translateY(-1px);
+}
+
+.checkout-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 560px) {
+
+  .checkout-form {
+    padding: 1.5rem;
+  }
+
+  .checkout-grid,
+  .checkout-grid-three {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+.field-error {
+    display: block;
+    margin-top: 5px;
+    color: #dc3545;
+    font-size: 12px;
+    font-weight: 500;
+}

@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');
+
+.ord-page {
+    --ink: #12142B;
+    --ink-soft: #5C5F80;
+    --paper: #F6F5FB;
+    --panel: #FFFFFF;
+    --line: #E5E3F2;
+    --signal: #4C5FF5;
+    --signal-tint: #EEF0FE;
+    --emerald: #17A672;
+    --emerald-tint: #E8F7F1;
+    --coral: #F0555F;
+    --coral-tint: #FDECED;
+    --amber: #E8A23A;
+    --amber-tint: #FCF2E2;
+
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+}
+
+.ord-page * {
+    box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+
+.ord-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.ord-eyebrow {
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+}
+
+.ord-title {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    letter-spacing: -0.01em;
+}
+
+.ord-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+}
+
+/* ---------- Table card ---------- */
+
+.ord-table-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.ord-empty {
+    margin: 0;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+}
+
+.ord-table-scroll {
+    overflow-x: auto;
+}
+
+.ord-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.ord-table thead {
+    background: var(--ink);
+    color: #FFFFFF;
+}
+
+.ord-table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.1rem;
+    white-space: nowrap;
+}
+
+.ord-th-actions {
+    text-align: right;
+}
+
+.ord-table td {
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+
+.ord-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.ord-table tbody tr:hover {
+    background: var(--paper);
+}
+
+.ord-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ord-customer-name {
+    margin: 0;
+    font-weight: 600;
+}
+
+.ord-customer-phone {
+    margin: 0.15rem 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+}
+
+.ord-address {
+    max-width: 220px;
+    color: var(--ink);
+}
+
+.ord-address-sub {
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+}
+
+.ord-total {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--emerald);
+    white-space: nowrap;
+}
+
+.ord-date {
+    color: var(--ink-soft);
+    white-space: nowrap;
+}
+
+/* ---------- Status select ---------- */
+
+.ord-status-select {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    border-radius: 999px;
+    padding: 0.4rem 2rem 0.4rem 0.9rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.65rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath fill='%235C5F80' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+}
+
+.ord-status-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 95, 245, 0.18);
+}
+
+.ord-status-select.tone-amber { background-color: var(--amber-tint); color: #9C6B14; }
+.ord-status-select.tone-signal { background-color: var(--signal-tint); color: var(--signal); }
+.ord-status-select.tone-emerald { background-color: var(--emerald-tint); color: var(--emerald); }
+.ord-status-select.tone-coral { background-color: var(--coral-tint); color: #B23A42; }
+.ord-status-select.tone-muted { background-color: var(--paper); color: var(--ink-soft); }
+
+/* ---------- Update button ---------- */
+
+.ord-update-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: #FFFFFF;
+    background: var(--ink);
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+}
+
+.ord-update-btn:hover:not(:disabled) {
+    background: var(--signal);
+}
+
+.ord-update-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+    .ord-address {
+        max-width: 160px;
+    }
+}

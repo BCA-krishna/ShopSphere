@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+.orders-page {
+  --plum: #3B0F2E;
+  --raspberry: #D6285B;
+  --raspberry-deep: #B31C49;
+  --marigold: #F2A93B;
+  --marigold-tint: #FCF0DA;
+  --leaf: #3EAA6D;
+  --leaf-tint: #E6F5EC;
+  --sky: #3B6FA8;
+  --sky-tint: #E7EEF6;
+  --coral-tint: #FBE4E7;
+  --paper: #FBF6F4;
+  --panel: #FFFFFF;
+  --ink: #241019;
+  --ink-soft: #8B6B78;
+  --line: #EFE1E6;
+
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  font-family: 'Manrope', sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.orders-page * {
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+
+.orders-header {
+  margin-bottom: 1.75rem;
+}
+
+.orders-title {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+
+.orders-count {
+  margin: 0.3rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* ---------- List ---------- */
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ---------- Ticket card ---------- */
+
+.order-ticket {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  animation: orders-rise 0.4s ease both;
+}
+
+.order-ticket-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem 1.5rem 1.1rem;
+}
+
+.order-id {
+  margin: 0 0 0.3rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
+.order-date {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.order-status {
+  flex-shrink: 0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.order-status.tone-leaf { background: var(--leaf-tint); color: var(--leaf); }
+.order-status.tone-marigold { background: var(--marigold-tint); color: #9C6B14; }
+.order-status.tone-signal,
+.order-status.tone-sky { background: var(--sky-tint); color: var(--sky); }
+.order-status.tone-coral { background: var(--coral-tint); color: var(--raspberry-deep); }
+.order-status.tone-muted { background: var(--paper); color: var(--ink-soft); }
+
+/* ---------- Perforation divider ---------- */
+
+.order-perforation {
+  position: relative;
+  height: 1px;
+  margin: 0 1.5rem;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--line) 0,
+    var(--line) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.order-perforation::before,
+.order-perforation::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--paper);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.order-perforation::before { left: -1.5rem; margin-left: -10px; }
+.order-perforation::after { right: -1.5rem; margin-right: -10px; }
+
+/* ---------- Body ---------- */
+
+.order-ticket-body {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 1.75rem;
+  padding: 1.4rem 1.5rem;
+}
+
+.order-block-heading {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem;
+}
+
+.order-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0 0 0.55rem;
+  font-size: 0.87rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.order-detail-row svg {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: var(--raspberry);
+}
+
+/* ---------- Items table ---------- */
+
+.order-items-table {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.order-items-head {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--paper);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.order-item-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.87rem;
+  border-top: 1px solid var(--line);
+}
+
+.order-item-name {
+  font-weight: 500;
+}
+
+.order-item-price {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.order-item-qty {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* ---------- Footer ---------- */
+
+.order-ticket-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--plum);
+  color: #FFFFFF;
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.order-total {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  color: var(--marigold);
+}
+
+/* ---------- Empty state ---------- */
+
+.orders-empty {
+  background: var(--panel);
+  border: 1px dashed var(--line);
+  border-radius: 18px;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.orders-empty-icon {
+  font-size: 2.6rem;
+  color: var(--marigold);
+  margin-bottom: 0.9rem;
+}
+
+.orders-empty h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 0.4rem;
+}
+
+.orders-empty p {
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+}
+
+.orders-empty-cta {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #FFFFFF;
+  background: var(--raspberry);
+  padding: 0.65rem 1.75rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.orders-empty-cta:hover {
+  background: var(--raspberry-deep);
+  color: #FFFFFF;
+}
+
+/* ---------- Skeleton ---------- */
+
+.order-skeleton {
+  height: 220px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, var(--line) 0%, #F7EDEF 50%, var(--line) 100%);
+  background-size: 200% 100%;
+  animation: orders-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes orders-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes orders-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .order-ticket { animation: none; }
+  .order-skeleton { animation: none; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+
+  .order-ticket-body {
+    grid-template-columns: 1fr;
+  }
+
+  .order-perforation::before,
+  .order-perforation::after {
+    display: none;
+  }
+
+  .order-ticket-top {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+}
+
+
+.ord-total-section {
+    margin-top: 24px;
+}
+
+.ord-price-details {
+    padding: 18px 24px;
+    background: #faf6f8;
+    border-top: 1px solid #eadde3;
+}
+
+.ord-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 15px;
+    color: #765f6b;
+}
+
+.ord-discount {
+    color: #198754;
+}
+
+.ord-final-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 28px;
+
+    background: #3d0b2d;
+    color: white;
+}
+
+.ord-final-total span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.ord-final-total strong {
+    font-size: 24px;
+    color: #ffb52e;
+}
+
+.order-actions {
+    padding: 16px 28px 22px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #eadde3;
+}
+
+.order-cancel-btn {
+    padding: 10px 20px;
+    border: 1px solid #dc3545;
+    border-radius: 8px;
+    background: white;
+    color: #dc3545;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.order-cancel-btn:hover {
+    background: #dc3545;
+    color: white;
+}
+

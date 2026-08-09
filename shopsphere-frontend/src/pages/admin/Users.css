@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');
+
+.usr-page {
+    --ink: #12142B;
+    --ink-soft: #5C5F80;
+    --paper: #F6F5FB;
+    --panel: #FFFFFF;
+    --line: #E5E3F2;
+    --signal: #4C5FF5;
+    --signal-tint: #EEF0FE;
+    --coral: #F0555F;
+    --coral-tint: #FDECED;
+
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+}
+
+.usr-page * {
+    box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+
+.usr-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.usr-eyebrow {
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+}
+
+.usr-title {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    letter-spacing: -0.01em;
+}
+
+.usr-search {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.6rem 1.1rem;
+    width: 100%;
+    max-width: 280px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.usr-search:focus {
+    outline: none;
+    border-color: var(--signal);
+    box-shadow: 0 0 0 3px var(--signal-tint);
+}
+
+/* ---------- Table card ---------- */
+
+.usr-table-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.usr-empty {
+    margin: 0;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+}
+
+.usr-table-scroll {
+    overflow-x: auto;
+}
+
+.usr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.usr-table thead {
+    background: var(--ink);
+    color: #FFFFFF;
+}
+
+.usr-table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.1rem;
+    white-space: nowrap;
+}
+
+.usr-table td {
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+}
+
+.usr-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.usr-table tbody tr:hover {
+    background: var(--paper);
+}
+
+.usr-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.usr-avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--signal-tint);
+    color: var(--signal);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.usr-name {
+    margin: 0;
+    font-weight: 600;
+}
+
+.usr-id {
+    margin: 0.1rem 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+}
+
+.usr-email {
+    color: var(--ink-soft);
+}
+
+.usr-role-pill {
+    display: inline-block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.32rem 0.8rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.usr-role-pill.tone-admin {
+    background: var(--coral-tint);
+    color: #B23A42;
+}
+
+.usr-role-pill.tone-user {
+    background: var(--signal-tint);
+    color: var(--signal);
+}
+
+/* ---------- Actions ---------- */
+
+.usr-th-actions {
+    text-align: right;
+}
+
+.usr-actions-cell {
+    text-align: right;
+}
+
+.usr-delete-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--coral);
+    background: var(--coral-tint);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.usr-delete-btn:hover:not(:disabled) {
+    background: var(--coral);
+    color: #FFFFFF;
+}
+
+.usr-delete-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
