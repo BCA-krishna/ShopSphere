@@ -7,7 +7,10 @@ import {
     FiMapPin,
     FiCalendar
 } from "react-icons/fi";
-import { getMyOrders, cancelOrder } from "../../services/orderService";
+import {
+    getAllOrders,
+    updateOrderStatus,
+} from "../../services/orderService";
 import "./Orders.css";
 
 const STATUS_STYLES = {
