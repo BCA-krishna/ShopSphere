@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
     getAllOrders,
     updateOrderStatus,
-} from "../../services/OrderService";
+} from "../../services/orderService";
 import "./Orders.css";
 
 const STATUS_OPTIONS = ["PENDING", "SHIPPED", "DELIVERED", "CANCELLED"];
