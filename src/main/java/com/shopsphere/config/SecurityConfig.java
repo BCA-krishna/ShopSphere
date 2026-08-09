@@ -40,30 +40,25 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
+                        // IMPORTANT: Product APIs public
+                        .requestMatchers("/api/products", "/api/products/**").permitAll()
+
                         // CORS preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Public Auth APIs
-                        .requestMatchers("/api/auth/**").permitAll()
-
-                        // Public Product APIs
-                        .requestMatchers(HttpMethod.GET, "/api/products").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-
-                        // Public files
-                        .requestMatchers("/uploads/**").permitAll()
-
-                        // Swagger
+                        // Public APIs
                         .requestMatchers(
+                                "/api/auth/**",
+                                "/uploads/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
 
-                        // Admin
+                        // Admin APIs
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // Protected
+                        // Customer APIs
                         .requestMatchers("/api/coupons/**").authenticated()
                         .requestMatchers("/api/users/**").authenticated()
 
