@@ -78,9 +78,9 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "https://dulcet-lollipop-7d6a0f.netlify.app"
+        configuration.setAllowedOriginPatterns(List.of(
+                "https://dulcet-lollipop-7d6a0f.netlify.app",
+                "http://localhost:5173"
         ));
 
         configuration.setAllowedMethods(List.of(
@@ -88,10 +88,13 @@ public class SecurityConfig {
                 "POST",
                 "PUT",
                 "DELETE",
+                "PATCH",
                 "OPTIONS"
         ));
 
         configuration.setAllowedHeaders(List.of("*"));
+
+        configuration.setExposedHeaders(List.of("Authorization"));
 
         configuration.setAllowCredentials(true);
 
