@@ -7,3 +7,7 @@ export const getAllUsers = (page = 0, size = 10) => {
 export const deleteUser = (id) => {
     return api.delete(`/users/${id}`);
 };
+
+export const registerUser = (data) => {
+    return api.post("/auth/register", data);
+};
