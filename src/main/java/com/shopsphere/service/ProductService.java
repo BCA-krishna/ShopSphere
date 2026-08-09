@@ -44,7 +44,7 @@ public class ProductService {
 
                 Files.write(path, image.getBytes());
 
-                product.setImageUrl(fileName);
+                product.setImageUrl("/uploads/" + fileName);
 
             } catch (IOException e) {
 
@@ -140,7 +140,7 @@ public class ProductService {
 
                 Files.write(path, image.getBytes());
 
-                product.setImageUrl(fileName);
+                product.setImageUrl("/uploads/" + fileName);
 
             } catch (IOException e) {
 
