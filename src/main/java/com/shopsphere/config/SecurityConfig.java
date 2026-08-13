@@ -39,7 +39,32 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
 
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+
+                        // Product APIs are public (read-only)
+                        .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/**").permitAll()
+
+                        // CORS preflight
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Public APIs
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/uploads/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+
+                        // Admin-only APIs
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                        // Everything else requires a logged-in user
+                        .anyRequest().authenticated()
+                )
+
+                .addFilterBefore(
+                        jwtFilter,
+                        UsernamePasswordAuthenticationFilter.class
                 );
 
         return http.build();
@@ -50,9 +75,16 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
+        // Exact known origins (add your custom domain here once you have one)
         configuration.setAllowedOrigins(List.of(
                 "https://dulcet-lollipop-7d6a0f.netlify.app",
                 "http://localhost:5173"
+        ));
+
+        // Vercel gives every deploy (prod + previews) a *.vercel.app subdomain,
+        // so match the pattern instead of hardcoding one URL.
+        configuration.setAllowedOriginPatterns(List.of(
+                "https://*.vercel.app"
         ));
 
         configuration.setAllowedMethods(List.of(
