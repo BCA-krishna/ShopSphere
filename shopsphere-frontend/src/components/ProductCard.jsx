@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { addToCart } from "../services/cartService";
+import { getImageUrl } from "../utils/getImageUrl";
 import "./ProductCard.css";
 
 function ProductCard({ product, compact }) {
 
-    const imageUrl = product.imageUrl
-        ? `https://shopsphere-backend-w77.onrender.com/uploads/${product.imageUrl}`
-        : "https://via.placeholder.com/300x300?text=No+Image";
+    const imageUrl = getImageUrl(product.imageUrl);
 
     const handleAddToCart = async (e) => {
         e.preventDefault();

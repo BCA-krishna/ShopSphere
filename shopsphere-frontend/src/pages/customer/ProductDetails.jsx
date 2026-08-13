@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FaStar, FaRegStar, FaTruck, FaShieldAlt, FaUndo } from "react-icons/fa";
 import { getProductById } from "../../services/productService";
 import { addToCart } from "../../services/cartService";
+import { getImageUrl } from "../../utils/getImageUrl";
 import "./ProductDetails.css";
 
 function ProductDetails() {
@@ -49,9 +50,7 @@ function ProductDetails() {
         );
     }
 
-    const imageUrl = product.imageUrl
-        ? `https://shopsphere-backend-w77.onrender.com/uploads/${product.imageUrl}`
-        : "https://via.placeholder.com/500";
+    const imageUrl = getImageUrl(product.imageUrl, "https://via.placeholder.com/500");
 
     return (
         <div className="container pd-container">

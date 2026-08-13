@@ -5,6 +5,7 @@ import {
     updateProduct,
     deleteProduct,
 } from "../../services/productService";
+import { getImageUrl } from "../../utils/getImageUrl";
 import "./Products.css";
 
 const CATEGORIES = [
@@ -360,7 +361,7 @@ function Products() {
                                         <td>
                                             <div className="prod-name-cell">
                                                 <img
-                                                    src={`https://shopsphere-backend-w77.onrender.com/uploads/${product.imageUrl}`}
+                                                    src={getImageUrl(product.imageUrl)}
                                                     alt={product.name}
                                                     className="prod-thumb"
                                                 />
