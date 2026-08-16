@@ -9,7 +9,7 @@ import {
   FaTags
 } from "react-icons/fa";
 
-import { getAllProducts, getCategories } from "../../services/productService";
+import { getFeaturedProducts, getCategories } from "../../services/productService";
 import ProductCard from "../../components/ProductCard";
 import "./Home.css";
 
@@ -46,7 +46,7 @@ function Home() {
     setProductsLoading(true);
     setProductsError(false);
     try {
-      const response = await getAllProducts();
+      const response = await getFeaturedProducts();
       setProducts(response.data.content ?? []);
     } catch (error) {
       console.error(error);
@@ -73,7 +73,7 @@ function Home() {
     navigate(`/products?category=${encodeURIComponent(category)}`);
   };
 
-  const featuredProducts = products.slice(0, 8);
+  const featuredProducts = products;
 
   const visibleCategories = categories
     .filter((cat) => cat !== "All")

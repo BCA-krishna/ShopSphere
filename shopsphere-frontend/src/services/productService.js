@@ -1,7 +1,20 @@
 import api from "../api/axiosConfig";
 
-export const getAllProducts = () => {
-    return api.get("/products");
+// Generic paginated fetch — used by the Products page (with real
+// pagination controls) and can be reused anywhere else that needs a
+// specific page/size.
+export const getAllProducts = (page = 0, size = 20, sortBy = "id", direction = "asc") => {
+    return api.get("/products", {
+        params: { page, size, sortBy, direction },
+    });
+};
+
+// Home page shows a fixed set of "Featured products" — just the first
+// 50, not the whole catalog.
+export const getFeaturedProducts = () => {
+    return api.get("/products", {
+        params: { page: 0, size: 50 },
+    });
 };
 
 export const addProduct = (formData) => {

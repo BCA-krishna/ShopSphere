@@ -10,6 +10,8 @@ import {
 import ProductCard from "../../components/ProductCard";
 import "./Products.css";
 
+const PAGE_SIZE = 20;
+
 function Products() {
 
     const [products, setProducts] = useState([]);
@@ -18,6 +20,7 @@ function Products() {
 
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [sortBy, setSortBy] = useState("default");
+    const [currentPage, setCurrentPage] = useState(1);
 
     const [searchParams] = useSearchParams();
 
@@ -48,9 +51,13 @@ function Products() {
         const requestId = ++requestIdRef.current;
         setLoading(true);
         try {
-            const response = await getAllProducts();
+            // Fetch the whole catalog once; pagination below is done
+            // client-side since the search/category endpoints don't
+            // support server-side paging.
+            const response = await getAllProducts(0, 1000);
             if (requestId === requestIdRef.current) {
                 setProducts(response.data.content);
+                setCurrentPage(1);
             }
         } catch (error) {
             console.error(error);
@@ -75,6 +82,7 @@ function Products() {
             const response = await searchProducts(keyword);
             if (requestId === requestIdRef.current) {
                 setProducts(response.data);
+                setCurrentPage(1);
             }
         } catch (error) {
             console.error(error);
@@ -95,6 +103,7 @@ function Products() {
             const response = await getProductsByCategory(category);
             if (requestId === requestIdRef.current) {
                 setProducts(response.data);
+                setCurrentPage(1);
             }
         } catch (error) {
             console.error(error);
@@ -134,6 +143,24 @@ function Products() {
             return 0;
         });
     }, [products, sortBy]);
+
+    const totalPages = Math.max(1, Math.ceil(sortedProducts.length / PAGE_SIZE));
+
+    const pageProducts = useMemo(() => {
+        const start = (currentPage - 1) * PAGE_SIZE;
+        return sortedProducts.slice(start, start + PAGE_SIZE);
+    }, [sortedProducts, currentPage]);
+
+    const handleSortChange = (value) => {
+        setSortBy(value);
+        setCurrentPage(1);
+    };
+
+    const goToPage = (page) => {
+        const clamped = Math.min(Math.max(page, 1), totalPages);
+        setCurrentPage(clamped);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
     return (
         <div className="catalog-page">
@@ -190,7 +217,7 @@ function Products() {
                         <select
                             className="sidebar-select"
                             value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
+                            onChange={(e) => handleSortChange(e.target.value)}
                         >
                             <option value="default">Default</option>
                             <option value="low">Price: Low to High</option>
@@ -216,11 +243,46 @@ function Products() {
                             ))}
                         </div>
                     ) : products.length > 0 ? (
-                        <div className="products-grid">
-                            {sortedProducts.map((product) => (
-                                <ProductCard key={product.id} product={product} />
-                            ))}
-                        </div>
+                        <>
+                            <div className="products-grid">
+                                {pageProducts.map((product) => (
+                                    <ProductCard key={product.id} product={product} />
+                                ))}
+                            </div>
+
+                            {totalPages > 1 && (
+                                <div className="catalog-pagination">
+                                    <button
+                                        className="pagination-btn"
+                                        onClick={() => goToPage(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                    >
+                                        Prev
+                                    </button>
+
+                                    {Array.from({ length: totalPages }).map((_, i) => {
+                                        const page = i + 1;
+                                        return (
+                                            <button
+                                                key={page}
+                                                className={`pagination-btn ${currentPage === page ? "is-active" : ""}`}
+                                                onClick={() => goToPage(page)}
+                                            >
+                                                {page}
+                                            </button>
+                                        );
+                                    })}
+
+                                    <button
+                                        className="pagination-btn"
+                                        onClick={() => goToPage(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            )}
+                        </>
                     ) : (
                         <div className="products-empty">
                             <FiPackage className="products-empty-icon" />
