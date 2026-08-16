@@ -28,7 +28,19 @@ function Register() {
         try {
             setLoading(true);
 
-            await registerUser(formData);
+            // Backend's UserRequest expects firstName/lastName/role, not
+            // fullName/phone — split the name and attach a default role.
+            const nameParts = formData.fullName.trim().split(/\s+/);
+            const firstName = nameParts[0] || "";
+            const lastName = nameParts.slice(1).join(" ") || firstName;
+
+            await registerUser({
+                firstName,
+                lastName,
+                email: formData.email,
+                password: formData.password,
+                role: "CUSTOMER",
+            });
 
             alert("Registration successful! Please login.");
 
