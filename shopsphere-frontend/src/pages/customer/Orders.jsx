@@ -8,8 +8,8 @@ import {
     FiCalendar
 } from "react-icons/fi";
 import {
-    getAllOrders,
-    updateOrderStatus,
+    getMyOrders,
+    cancelOrder,
 } from "../../services/orderService";
 import "./Orders.css";
 
