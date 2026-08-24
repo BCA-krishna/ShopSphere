@@ -8,6 +8,7 @@ import com.shopsphere.repository.ProductRepository;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Comparator;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -172,20 +173,149 @@ public class ProductService {
 
     public List<ProductResponse> searchProducts(String keyword) {
 
-        List<Product> products =
-                productRepository.findByNameContainingIgnoreCase(keyword);
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return List.of();
+        }
 
-        return products.stream()
-                .map(product -> new ProductResponse(
-                        product.getId(),
-                        product.getName(),
-                        product.getDescription(),
-                        product.getPrice(),
-                        product.getStock(),
-                        product.getImageUrl(),
-                        product.getCategory()
+        String searchTerm = keyword.trim().toLowerCase();
+
+        // First: normal database search
+        List<Product> exactMatches =
+                productRepository.findByNameContainingIgnoreCase(searchTerm);
+
+        // If normal search found products, return them
+        if (!exactMatches.isEmpty()) {
+            return exactMatches.stream()
+                    .map(this::toProductResponse)
+                    .toList();
+        }
+
+        // No normal match -> fuzzy search
+        List<Product> allProducts = productRepository.findAll();
+
+        return allProducts.stream()
+                .map(product -> new ProductMatch(
+                        product,
+                        calculateSimilarity(
+                                searchTerm,
+                                product.getName()
+                        )
                 ))
+                .filter(match -> match.score >= 0.55)
+                .sorted(Comparator.comparingDouble(
+                        ProductMatch::getScore
+                ).reversed())
+                .map(match -> toProductResponse(match.product))
                 .toList();
+    }
+    private ProductResponse toProductResponse(Product product) {
+
+        return new ProductResponse(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getStock(),
+                product.getImageUrl(),
+                product.getCategory()
+        );
+    }
+    private double calculateSimilarity(String searchTerm, String productName) {
+
+        if (productName == null || productName.isBlank()) {
+            return 0.0;
+        }
+
+        String normalizedSearch = searchTerm
+                .toLowerCase()
+                .trim();
+
+        String normalizedName = productName
+                .toLowerCase()
+                .trim();
+
+        // Exact product-name substring
+        if (normalizedName.contains(normalizedSearch)) {
+            return 1.0;
+        }
+
+        String[] words = normalizedName.split("\\s+");
+
+        double bestScore = 0.0;
+
+        for (String word : words) {
+
+            if (word.isBlank()) {
+                continue;
+            }
+
+            int distance =
+                    levenshteinDistance(normalizedSearch, word);
+
+            int maxLength = Math.max(
+                    normalizedSearch.length(),
+                    word.length()
+            );
+
+            if (maxLength == 0) {
+                continue;
+            }
+
+            double score =
+                    1.0 - ((double) distance / maxLength);
+
+            bestScore = Math.max(bestScore, score);
+        }
+
+        return bestScore;
+    }
+    private int levenshteinDistance(String a, String b) {
+
+        int[][] dp = new int[a.length() + 1][b.length() + 1];
+
+        for (int i = 0; i <= a.length(); i++) {
+            dp[i][0] = i;
+        }
+
+        for (int j = 0; j <= b.length(); j++) {
+            dp[0][j] = j;
+        }
+
+        for (int i = 1; i <= a.length(); i++) {
+
+            for (int j = 1; j <= b.length(); j++) {
+
+                int cost =
+                        a.charAt(i - 1) == b.charAt(j - 1)
+                                ? 0
+                                : 1;
+
+                dp[i][j] = Math.min(
+                        Math.min(
+                                dp[i - 1][j] + 1,
+                                dp[i][j - 1] + 1
+                        ),
+                        dp[i - 1][j - 1] + cost
+                );
+            }
+        }
+
+        return dp[a.length()][b.length()];
+    }
+
+    private static class ProductMatch {
+
+        private final Product product;
+        private final double score;
+
+        public ProductMatch(Product product, double score) {
+            this.product = product;
+            this.score = score;
+        }
+
+        public double getScore() {
+            return score;
+        }
     }
 
     public List<ProductResponse> getProductsByCategory(String category) {

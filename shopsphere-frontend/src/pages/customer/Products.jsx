@@ -172,17 +172,6 @@ function Products() {
                     <p className="catalog-count">{products.length} product{products.length === 1 ? "" : "s"}</p>
                 </div>
 
-                <div className="catalog-search">
-                    <FiSearch className="catalog-search-icon" />
-                    <input
-                        type="text"
-                        placeholder="Search products..."
-                        className="catalog-search-input"
-                        value={search}
-                        onChange={handleSearch}
-                    />
-                </div>
-
             </div>
 
             <div className="catalog-body">

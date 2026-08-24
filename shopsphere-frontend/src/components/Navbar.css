@@ -124,3 +124,44 @@
 .search-btn:hover{
     background:#1d5fd1;
 }
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  padding-right: 42px;
+  box-sizing: border-box;
+}
+
+.voice-search-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+  padding: 0;
+
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.voice-search-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+}

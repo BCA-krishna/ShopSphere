@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FiMic } from "react-icons/fi";
 import "./Navbar.css";
 
 function Navbar() {
@@ -26,6 +27,37 @@ function Navbar() {
 
     navigate(`/products?search=${encodeURIComponent(keyword)}`);
   };
+const startVoiceSearch = () => {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Voice search is not supported in this browser.");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = "en-IN";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onresult = (event) => {
+    const spokenText = event.results[0][0].transcript;
+
+    setQuery(spokenText);
+
+    navigate(
+      `/products?search=${encodeURIComponent(spokenText)}`
+    );
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Voice search error:", event.error);
+  };
+
+  recognition.start();
+};
 
   return (
     <div className="navbar-wrapper">
@@ -39,12 +71,26 @@ function Navbar() {
         {/* Search */}
         <form className="search-box" onSubmit={handleSearch}>
 
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+          <div className="search-input-wrapper">
+
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+
+            <button
+              type="button"
+              className="voice-search-btn"
+              onClick={startVoiceSearch}
+              title="Voice search"
+              aria-label="Voice search"
+            >
+              <FiMic />
+            </button>
+
+          </div>
 
           <button type="submit" className="search-btn">
             Search
