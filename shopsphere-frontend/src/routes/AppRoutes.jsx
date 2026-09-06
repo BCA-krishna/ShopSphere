@@ -12,6 +12,7 @@ import Register from "../pages/auth/Register";
 
 import Cart from "../pages/customer/Cart";
 import Orders from "../pages/customer/Orders";
+import Wishlist from "../pages/customer/Wishlist";
 
 import Dashboard from "../pages/admin/Dashboard";
 import ProductsAdmin from "../pages/admin/Products";
@@ -37,6 +38,7 @@ function AppRoutes() {
                     <Route path="/register" element={<Register />} />
 
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/wishlist" element={<Wishlist />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/orders" element={<Orders />} />
 

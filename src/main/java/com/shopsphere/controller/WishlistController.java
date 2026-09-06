@@ -2,6 +2,7 @@ package com.shopsphere.controller;
 
 import com.shopsphere.dto.WishlistResponse;
 import com.shopsphere.service.WishlistService;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,23 +19,30 @@ public class WishlistController {
 
     @PostMapping("/{productId}")
     public WishlistResponse addToWishlist(
-            @PathVariable Long productId) {
-
+            @PathVariable Long productId
+    ) {
         return wishlistService.addToWishlist(productId);
     }
 
     @GetMapping
-    public List<WishlistResponse> getWishlist() {
-
-        return wishlistService.getWishlist();
+    public List<WishlistResponse> getMyWishlist() {
+        return wishlistService.getMyWishlist();
     }
 
-    @DeleteMapping("/{wishlistId}")
+    @DeleteMapping("/{productId}")
     public String removeFromWishlist(
-            @PathVariable Long wishlistId) {
+            @PathVariable Long productId
+    ) {
+        wishlistService.removeFromWishlist(productId);
 
-        wishlistService.removeFromWishlist(wishlistId);
+        return "Product removed from wishlist";
+    }
 
-        return "Product removed from wishlist successfully";
+    @GetMapping("/check/{productId}")
+    public boolean checkWishlist(
+            @PathVariable Long productId
+    ) {
+        return wishlistService
+                .isProductWishlisted(productId);
     }
 }

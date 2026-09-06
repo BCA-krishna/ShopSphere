@@ -1,0 +1,138 @@
+.wishlist-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.wishlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.wishlist-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wishlist-header h2 svg {
+    color: #e63946;
+}
+
+.wishlist-header p {
+    color: #666;
+}
+
+/* Wishlist Grid */
+
+.wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+/* Wishlist Card */
+
+.wishlist-card {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wishlist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.wishlist-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    padding: 15px;
+}
+
+.wishlist-info {
+    padding: 15px;
+}
+
+.wishlist-info h4 {
+    margin: 0 0 10px;
+    font-size: 17px;
+}
+
+.wishlist-info p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Remove Button */
+
+.wishlist-remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: white;
+    color: #e63946;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+}
+
+.wishlist-remove-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Empty Wishlist */
+
+.wishlist-empty {
+    min-height: 350px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.wishlist-empty > svg {
+    font-size: 55px;
+    color: #e63946;
+}
+
+.wishlist-empty h3 {
+    margin-top: 20px;
+}
+
+.wishlist-empty p {
+    color: #777;
+}
+
+.wishlist-shop-btn {
+    margin-top: 15px;
+    padding: 12px 22px;
+
+    background: #111;
+    color: white;
+
+    border-radius: 8px;
+    text-decoration: none;
+}

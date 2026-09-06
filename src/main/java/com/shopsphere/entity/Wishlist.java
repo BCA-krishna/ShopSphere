@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(
+        name = "wishlist",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"user_id", "product_id"})
         }
@@ -17,11 +18,11 @@ public class Wishlist {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     private LocalDateTime addedDate;

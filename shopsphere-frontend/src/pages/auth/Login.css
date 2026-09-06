@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap');
 
-.register-page {
+.auth-page {
   min-height: calc(100vh - 200px);
   display: flex;
   align-items: center;
@@ -9,7 +9,7 @@
   background: #FBF6F4;
 }
 
-.register-card {
+.auth-card {
   width: 100%;
   max-width: 420px;
   background: #FFFFFF;
@@ -20,21 +20,38 @@
   text-align: center;
 }
 
-.register-card h2 {
+.auth-title {
   font-family: 'Fraunces', serif;
   font-weight: 700;
   font-size: 1.8rem;
   color: #241019;
-  margin: 0 0 1.75rem;
+  margin: 0 0 0.4rem;
 }
 
-.register-card form {
+.auth-subtitle {
+  font-family: 'Manrope', sans-serif;
+  color: #8B6B78;
+  font-size: 0.95rem;
+  margin: 0 0 2rem;
+}
+
+.auth-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
+  text-align: left;
 }
 
-.register-card input {
+.auth-field label {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #241019;
+  margin-bottom: 0.4rem;
+}
+
+.auth-field input {
   width: 100%;
   padding: 0.75rem 1rem;
   border: 1px solid #EFE1E6;
@@ -46,12 +63,12 @@
   box-sizing: border-box;
 }
 
-.register-card input:focus {
+.auth-field input:focus {
   border-color: #D6285B;
   box-shadow: 0 0 0 3px rgba(214, 40, 91, 0.12);
 }
 
-.register-card button {
+.auth-submit {
   margin-top: 0.5rem;
   padding: 0.85rem;
   border: none;
@@ -65,29 +82,29 @@
   transition: background 0.15s ease, transform 0.15s ease;
 }
 
-.register-card button:hover:not(:disabled) {
+.auth-submit:hover:not(:disabled) {
   background: #B31C49;
   transform: translateY(-1px);
 }
 
-.register-card button:disabled {
+.auth-submit:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.register-card p {
+.auth-card p {
   margin-top: 1.5rem;
   font-family: 'Manrope', sans-serif;
   font-size: 0.9rem;
   color: #8B6B78;
 }
 
-.register-card a {
+.auth-card a {
   color: #D6285B;
   font-weight: 600;
   text-decoration: none;
 }
 
-.register-card a:hover {
+.auth-card a:hover {
   text-decoration: underline;
 }
